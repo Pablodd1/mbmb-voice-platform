@@ -1,0 +1,140 @@
+{
+  "florida_medicaid_rules": {
+    "provider_enrollment": {
+      "requirements": [
+        "Active Florida Medicaid provider ID",
+        "Current CAQH profile",
+        "Valid NPI number",
+        "Florida medical license",
+        "Malpractice insurance"
+      ],
+      "verification_api": "https://portal.flmmis.com/api/provider/verify",
+      "auto_check": true
+    },
+    "claim_submission": {
+      "timely_filing": 365,
+      "batch_limits": {
+        "professional": 1000,
+        "institutional": 500,
+        "dental": 200
+      },
+      "required_fields": [
+        "Patient Medicaid ID",
+        "Provider NPI",
+        "Diagnosis codes (ICD-10)",
+        "Procedure codes (CPT/HCPCS)",
+        "Service dates",
+        "Place of service"
+      ]
+    },
+    "prior_authorization": {
+      "required_services": [
+        "Specialist visits (except PCP)",
+        "Advanced imaging (MRI, CT, PET)",
+        "Durable medical equipment > $500",
+        "Physical therapy > 20 visits",
+        "Behavioral health services",
+        "Dental services (adults)"
+      ],
+      "api_endpoint": "https://portal.flmmis.com/api/priorauth/submit",
+      "response_time": "24-48 hours"
+    }
+  },
+  "miami_dade_specific": {
+    "major_providers": {
+      "baptist_health": {
+        "network_id": "BHSF001",
+        "plans": [
+          "Baptist Employee Plan",
+          "Baptist Select"
+        ],
+        "prior_auth_phone": "(786) 596-1960",
+        "claims_address": "P.O. Box 6109, Miami, FL 33261"
+      },
+      "jackson_health": {
+        "network_id": "JHSF001",
+        "plans": [
+          "Jackson Employee Plan",
+          "Jackson Charity Care"
+        ],
+        "prior_auth_phone": "(305) 585-6000",
+        "special_requirements": [
+          "County employee verification",
+          "Income documentation"
+        ]
+      },
+      "cleveland_clinic_fl": {
+        "network_id": "CCFL001",
+        "plans": [
+          "CCF Employee Plan",
+          "CCF Medicare Advantage"
+        ],
+        "service_area": "Miami-Dade, Broward, Palm Beach"
+      }
+    },
+    "common_denial_reasons": {
+      "provider_not_in_network": {
+        "frequency": 0.35,
+        "resolution": "Verify provider enrollment status",
+        "appeal_success_rate": 0.15
+      },
+      "service_not_covered": {
+        "frequency": 0.28,
+        "resolution": "Check medical necessity documentation",
+        "appeal_success_rate": 0.45
+      },
+      "prior_authorization_required": {
+        "frequency": 0.22,
+        "resolution": "Submit prior auth request",
+        "appeal_success_rate": 0.75
+      },
+      "timely_filing_expired": {
+        "frequency": 0.15,
+        "resolution": "File appeal with justification",
+        "appeal_success_rate": 0.25
+      }
+    }
+  },
+  "billing_optimization": {
+    "revenue_cycle_metrics": {
+      "average_days_in_ar": 45,
+      "target_days_in_ar": 35,
+      "clean_claim_rate": 0.95,
+      "first_pass_rate": 0.88,
+      "denial_rate": 0.12
+    },
+    "ai_predictions": {
+      "denial_likelihood": {
+        "high_risk_indicators": [
+          "New provider (<6 months)",
+          "Complex procedure codes",
+          "Multiple services per day",
+          "Out-of-network services"
+        ],
+        "prevention_strategies": [
+          "Enhanced documentation",
+          "Pre-submission review",
+          "Provider education",
+          "Alternative coding"
+        ]
+      }
+    }
+  },
+  "spanish_language_support": {
+    "medical_terms": {
+      "insurance": "seguro",
+      "claim": "reclamo",
+      "prior_authorization": "autorizaci\u00f3n previa",
+      "denial": "denegaci\u00f3n",
+      "appeal": "apelaci\u00f3n",
+      "copayment": "copago",
+      "deductible": "deducible"
+    },
+    "common_phrases": {
+      "greeting": "Hola, soy el asistente de facturaci\u00f3n de MBMB. \u00bfC\u00f3mo puedo ayudarle hoy?",
+      "claim_inquiry": "Voy a verificar el estado de su reclamo. Esto tomar\u00e1 solo un momento.",
+      "denial_explanation": "Entiendo que su reclamo fue denegado. Perm\u00edtame explicar las opciones de apelaci\u00f3n.",
+      "prior_auth_needed": "Este servicio requiere autorizaci\u00f3n previa. \u00bfLe gustar\u00eda que la solicite por usted?"
+    }
+  }
+}
