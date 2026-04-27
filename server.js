@@ -12,11 +12,17 @@ const jwt = require('jsonwebtoken');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Database connection
-const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,
-    ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-});
+// Database connection - lazy init
+let pool = null;
+function getPool() {
+    if (!pool && process.env.DATABASE_URL) {
+        pool = new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
+        });
+    }
+    return pool;
+}
 
 // Middleware
 app.use(helmet({
@@ -187,7 +193,7 @@ async function scrubClaimWithAI(claimData, payerId) {
     );
     
     if (servicesRequiringAuth.length > 0 && !claimData.priorAuthNumber) {
-        issues.push(`Prior authorization required for: ${servicesRequiringAuth.map(s => s.type).join(', ')}`);
+        issues.push('Prior authorization required for: ${servicesRequiringAuth.map(s => s.type).join(', ')}');
         confidence -= 30;
     }
     
@@ -196,7 +202,7 @@ async function scrubClaimWithAI(claimData, payerId) {
     const daysSinceService = Math.floor((new Date() - serviceDate) / (1000 * 60 * 60 * 24));
     
     if (daysSinceService > payerRules.maxTimelyFiling) {
-        issues.push(`Claim exceeds timely filing limit of ${payerRules.maxTimelyFiling} days`);
+        issues.push('Claim exceeds timely filing limit of ${payerRules.maxTimelyFiling} days');
         confidence -= 50;
     }
     
@@ -253,7 +259,7 @@ async function handleVoiceAgent(action, parameters) {
     // Simulate AI voice agent response
     const responses = {
         'check_claim_status': {
-            message: 'I'll check that claim status for you right away. Let me access the payer system.',
+            message: 'I will check that claim status for you right away. Let me access the payer system.',
             nextAction: 'query_payer_system',
             estimatedTime: '30 seconds'
         },
@@ -263,14 +269,14 @@ async function handleVoiceAgent(action, parameters) {
             requirements: ['denial_reason', 'claim_number', 'supporting_documents']
         },
         'verify_eligibility': {
-            message: 'I'll verify the patient's eligibility with their insurance. This will just take a moment.',
+            message: 'I will verify the patient eligibility with their insurance. This will just take a moment.',
             nextAction: 'verify_insurance',
             language: parameters.language || 'en-US'
         }
     };
     
     return responses[action] || {
-        message: 'I'm connecting you with our specialized billing team who can assist you further.',
+        message: ' I am  connecting you with our specialized billing team who can assist you further.',
         nextAction: 'transfer_to_human'
     };
 }
@@ -297,7 +303,7 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`🏥 MBMB Medical Billing Platform v2.0 running on port ${PORT}`);
-    console.log(`🚀 Advanced AI features enabled`);
-    console.log(`🇵️ Florida-specific payer rules loaded`);
+    console.log('🏥 MBMB Medical Billing Platform v2.0 running on port ${PORT}');
+    console.log('🚀 Advanced AI features enabled');
+    console.log('🇵️ Florida-specific payer rules loaded');
 });
