@@ -18,7 +18,6 @@
     }
   ],
   "env": {
-    "SUPABASE_URL": "https://vodhhauwowkalvaxzqyv.supabase.co",
-    "SUPABASE_ANON_KEY": "placeholder_anon_key_for_deployment"
+    "SUPABASE_URL": "https://vodhhauwowkalvaxzqyv.supabase.co"
   }
 }
