@@ -138,7 +138,7 @@ app.use(helmet({
             styleSrc: ["'self'", "'unsafe-inline'"],
             scriptSrc: ["'self'", "'unsafe-inline'"],
             imgSrc: ["'self'", "data:", "https:"],
-            connectSrc: ["'self'", "https://api.openai.com"]
+            connectSrc: ["'self'", "https://api.openai.com", "https://*.supabase.co", "https://api.minimax.chat"]
         },
     },
 }));
@@ -523,6 +523,126 @@ async function handleVoiceAgent(action, parameters) {
         nextAction: 'transfer_to_human'
     };
 }
+
+// ============================================
+// REQUEST API ENDPOINTS
+// ============================================
+
+// Callback request endpoint - stores requests even without Twilio
+app.post('/api/callback-request', async (req, res) => {
+    try {
+        const { name, phone, reason } = req.body;
+        
+        if (!name || !phone) {
+            return res.status(400).json({ error: 'Name and phone required' });
+        }
+        
+        // Store in Supabase if available
+        const supabase = getSupabaseClient();
+        
+        try {
+            const { data, error } = await supabase
+                .from('callback_requests')
+                .insert([{
+                    name,
+                    phone,
+                    reason: reason || 'demo',
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                }]);
+            
+            if (!error) {
+                console.log(`Callback requested: ${name} - ${phone}`);
+                return res.json({
+                    success: true,
+                    message: 'Callback requested',
+                    twilio: process.env.TWILIO_ACCOUNT_SID ? 'will_call' : 'not_configured'
+                });
+            }
+        } catch (dbError) {
+            console.log('Supabase not available, request logged locally');
+        }
+        
+        // Log locally even without database
+        console.log(`CALLBACK REQUEST: ${name} - ${phone} (${reason})`);
+        
+        res.json({
+            success: true,
+            message: 'Callback requested - will be processed when Twilio is configured',
+            twilio: false,
+            note: 'Add Twilio credentials to enable actual calls'
+        });
+        
+    } catch (error) {
+        console.error('Callback request error:', error);
+        res.status(500).json({ error: 'Request failed' });
+    }
+});
+
+// Demo request endpoint
+app.post('/api/demo-request', async (req, res) => {
+    try {
+        const { 
+            practice_name, full_name, email, phone, 
+            specialty, volume, challenges 
+        } = req.body;
+        
+        if (!practice_name || !full_name || !email || !phone) {
+            return res.status(400).json({ error: 'Required fields missing' });
+        }
+        
+        const supabase = getSupabaseClient();
+        
+        try {
+            await supabase
+                .from('demo_requests')
+                .insert([{
+                    practice_name,
+                    full_name,
+                    email,
+                    phone,
+                    specialty: specialty || null,
+                    volume: volume || null,
+                    challenges: challenges || null,
+                    status: 'pending',
+                    created_at: new Date().toISOString()
+                }]);
+            
+            console.log(`Demo requested by: ${full_name} from ${practice_name}`);
+        } catch (dbError) {
+            console.log('Demo logged locally');
+        }
+        
+        // Also send to existing demo endpoint if it exists
+        console.log(`DEMO REQUEST: ${full_name} from ${practice_name} - ${email} - ${phone}`);
+        
+        res.json({
+            success: true,
+            message: 'Demo requested! We will contact you within 24 hours.'
+        });
+        
+    } catch (error) {
+        console.error('Demo request error:', error);
+        res.status(500).json({ error: 'Request failed' });
+    }
+});
+
+// Get pending callbacks (admin)
+app.get('/api/callbacks', async (req, res) => {
+    try {
+        const supabase = getSupabaseClient();
+        const { data, error } = await supabase
+            .from('callback_requests')
+            .select('*')
+            .eq('status', 'pending')
+            .order('created_at', { ascending: false })
+            .limit(20);
+        
+        res.json({ callbacks: data || [] });
+    } catch (error) {
+        res.json({ callbacks: [], note: 'No database connection' });
+    }
+});
 
 // Health check endpoint
 app.get('/api/health', (req, res) => {

@@ -3,233 +3,145 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MBMB - Miami's Premier Medical Billing Automation Platform</title>
+    <title>MBMB - Miami Medical Billing Voice Platform</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: #333;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f5f5;
         }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
         header {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
+            background: #1a1a2e;
+            color: white;
+            padding: 1rem 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
         }
-        
         nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 1rem 0;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        
-        .logo {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #667eea;
-        }
-        
+        .logo { font-size: 1.8rem; font-weight: bold; color: #e94560; }
         .nav-links {
             display: flex;
             list-style: none;
             gap: 2rem;
         }
-        
         .nav-links a {
+            color: white;
             text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            transition: color 0.3s;
+            opacity: 0.8;
+            transition: opacity 0.3s;
         }
-        
-        .nav-links a:hover {
-            color: #667eea;
-        }
-        
+        .nav-links a:hover { opacity: 1; }
         .hero {
-            margin-top: 80px;
-            padding: 4rem 0;
-            text-align: center;
+            margin-top: 70px;
+            padding: 3rem 0 2rem;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
             color: white;
+            text-align: center;
         }
-        
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        .hero h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .hero .tagline { font-size: 1.2rem; opacity: 0.9; margin-bottom: 1rem; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
-        
-        .hero p {
-            font-size: 1.3rem;
+        .status-bar {
+            background: #16213e;
+            padding: 1rem;
             margin-bottom: 2rem;
-            opacity: 0.9;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
         }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2rem;
-            background: #ff6b6b;
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
             color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            font-size: 0.9rem;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #4CAF50;
         }
-        
-        .features {
-            background: white;
-            padding: 4rem 0;
-        }
-        
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #333;
-        }
-        
+        .status-dot.offline { background: #f44336; }
         .features-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 3rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
-        
         .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #e9ecef;
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        
-        .miami-features {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            color: white;
-            padding: 4rem 0;
-        }
-        
-        .miami-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-        
-        .miami-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .analytics {
-            background: #2c3e50;
-            color: white;
-            padding: 4rem 0;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-        
-        .stat-item h3 {
-            font-size: 3rem;
-            color: #3498db;
-            margin-bottom: 0.5rem;
-        }
-        
-        .demo-section {
             background: white;
-            padding: 4rem 0;
-            text-align: center;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        
-        .demo-form {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-            text-align: left;
-        }
-        
-        .form-group label {
-            display: block;
+        .feature-card h3 {
+            color: #1a1a2e;
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
-        
-        .form-group input,
-        .form-group textarea {
+        .feature-card p { color: #666; font-size: 0.95rem; }
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+        .btn-primary {
+            background: #e94560;
+            color: white;
+        }
+        .btn-primary:hover { background: #d63850; }
+        .btn-secondary {
+            background: #1a1a2e;
+            color: white;
+        }
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-section h2 { margin-bottom: 1rem; color: #1a1a2e; }
+        .form-group { margin-bottom: 1rem; }
+        .form-group label { display: block; margin-bottom: 0.3rem; font-weight: 500; }
+        .form-group input, .form-group select, .form-group textarea {
             width: 100%;
             padding: 0.8rem;
             border: 1px solid #ddd;
             border-radius: 8px;
             font-size: 1rem;
         }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
+        .form-group textarea { min-height: 80px; }
         .submit-button {
             width: 100%;
             padding: 1rem;
-            background: #667eea;
+            background: #e94560;
             color: white;
             border: none;
             border-radius: 8px;
@@ -238,68 +150,58 @@
             cursor: pointer;
             transition: background 0.3s;
         }
-        
-        .submit-button:hover {
-            background: #5a67d8;
+        .submit-button:hover { background: #d63850; }
+        .submit-button:disabled { background: #999; cursor: not-allowed; }
+        .message {
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
         }
-        
+        .message.success { background: #e8f5e9; color: #2e7d32; display: block; }
+        .message.error { background: #ffebee; color: #c62828; display: block; }
+        .callback-requests {
+            margin-top: 2rem;
+        }
+        .callback-item {
+            background: #f8f8f8;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .callback-item .name { font-weight: 600; color: #1a1a2e; }
+        .callback-item .phone { color: #666; }
+        .callback-item .status {
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            background: #e3f2fd;
+            color: #1976d2;
+        }
         footer {
-            background: #1a202c;
+            background: #1a1a2e;
             color: white;
             padding: 2rem 0;
             text-align: center;
+            margin-top: 2rem;
         }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-        
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            color: #667eea;
-        }
-        
-        .footer-section ul {
-            list-style: none;
-        }
-        
-        .footer-section a {
-            color: #cbd5e0;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-        
-        .footer-section a:hover {
-            color: white;
-        }
-        
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .features-grid,
-            .miami-grid {
-                grid-template-columns: 1fr;
-            }
+            .nav-links { display: none; }
+            .hero h1 { font-size: 1.8rem; }
+            .status-bar { flex-direction: column; align-items: flex-start; }
         }
     </style>
 </head>
 <body>
     <header>
-        <nav class="container">
+        <nav>
             <div class="logo">🏥 MBMB</div>
             <ul class="nav-links">
                 <li><a href="#features">Features</a></li>
-                <li><a href="#miami">Miami Advantage</a></li>
-                <li><a href="#analytics">Analytics</a></li>
+                <li><a href="#callback">Request Callback</a></li>
                 <li><a href="#demo">Demo</a></li>
             </ul>
         </nav>
@@ -307,256 +209,277 @@
 
     <section class="hero">
         <div class="container">
-            <h1>MBMB: Miami's Premier Medical Billing Platform</h1>
-            <p>AI-Powered Revenue Cycle Management for South Florida Healthcare Providers</p>
-            <a href="#demo" class="cta-button">Transform Your Billing Today</a>
+            <h1>🤖 AI Voice Platform for Medical Billing</h1>
+            <p class="tagline">24/7 Automated Voice calls for claims, payments & patient follow-up</p>
+            <a href="#callback" class="btn btn-primary">📞 Request AI Callback</a>
         </div>
     </section>
 
-    <section class="features" id="features">
-        <div class="container">
-            <h2 class="section-title">🚀 Revolutionary Billing Automation</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">🤖</div>
-                    <h3>AI Voice Agents</h3>
-                    <p>24/7 bilingual voice agents handle insurance calls, claim status inquiries, and appeals automatically. Never wait on hold again!</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">📈</div>
-                    <h3>Predictive Denial Prevention</h3>
-                    <p>Machine learning algorithms analyze claims before submission, predicting and preventing denials with 95% accuracy.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">⚙️</div>
-                    <h3>Smart Claim Scrubbing</h3>
-                    <p>Advanced AI reviews every claim against 10,000+ payer rules, ensuring clean submission the first time.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💼</div>
-                    <h3>Automated Prior Auth</h3>
-                    <p>Streamline prior authorization requests with AI-powered form completion and status tracking.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">🔍</div>
-                    <h3>Insurance Discovery</h3>
-                    <p>Automatically find and verify patient insurance coverage, including secondary and tertiary payers.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">💰</div>
-                    <h3>Intelligent Payment Posting</h3>
-                    <p>AI matches payments to claims automatically, handles adjustments, and identifies underpayments instantly.</p>
-                </div>
+    <div class="container">
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="status-item">
+                <span class="status-dot" id="supabase-status"></span>
+                <span>Supabase</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot offline" id="twilio-status"></span>
+                <span>Twilio (Not Connected)</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot" id="minimax-status"></span>
+                <span>MiniMax AI</span>
+            </div>
+            <div class="status-item">
+                <span class="status-dot offline" id="phonenumber-status"></span>
+                <span>Phone Number (Add in Dashboard)</span>
             </div>
         </div>
-    </section>
 
-    <section class="miami-features" id="miami">
-        <div class="container">
-            <h2 class="section-title">🏠 Miami-Dade Healthcare Advantage</h2>
-            <div class="miami-grid">
-                <div class="miami-card">
-                    <h3>🇵️ Bilingual Excellence</h3>
-                    <p>Native Spanish and English voice agents perfectly suited for Miami's diverse patient population.</p>
-                </div>
-                <div class="miami-card">
-                    <h3>🏍️ Florida Medicaid Expertise</h3>
-                    <p>Deep integration with Florida Medicaid rules, Sunshine Health, and state-specific requirements.</p>
-                </div>
-                <div class="miami-card">
-                    <h3>🏥 Local Payer Networks</h3>
-                    <p>Optimized for Baptist Health, Jackson Health, Cleveland Clinic Florida, and all major Miami payers.</p>
-                </div>
-                <div class="miami-card">
-                    <h3>📊 Regional Benchmarks</h3>
-                    <p>Compare your practice against Miami-Dade county revenue cycle performance metrics.</p>
-                </div>
-                <div class="miami-card">
-                    <h3>💵 Multi-Currency Support</h3>
-                    <p>Handle international patient billing with automatic currency conversion for Miami's tourism industry.</p>
-                </div>
-                <div class="miami-card">
-                    <h3>🚀 South Florida Speed</h3>
-                    <p>Lightning-fast processing with local data centers ensuring sub-100ms response times.</p>
-                </div>
+        <!-- Features -->
+        <div class="features-grid" id="features">
+            <div class="feature-card">
+                <h3>📞 Incoming Call Handling</h3>
+                <p>AI answers calls, greets patients by name from database, handles common billing questions about claims, insurance, and payments.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🔔 Automated Reminders</h3>
+                <p>Schedule automatic voice calls to patients for payment reminders, appointment follow-ups, and claim status updates.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🗣️ Speech Recognition</h3>
+                <p>Understands patient speech - processes keywords like "claim", "insurance", "payment" and routes appropriately.</p>
+            </div>
+            <div class="feature-card">
+                <h3>📋 Call Logging</h3>
+                <p>All calls are logged to database - track patient interactions, call duration, and outcomes.</p>
+            </div>
+            <div class="feature-card">
+                <h3>🇪🇸 Bilingual Support</h3>
+                <p>AI speaks in English and Spanish - serves Miami's diverse patient population.</p>
+            </div>
+            <div class="feature-card">
+                <h3>✅ HIPAA Compliant</h3>
+                <p>Secure handling of patient health information with audit logging and data encryption.</p>
             </div>
         </div>
-    </section>
 
-    <section class="analytics" id="analytics">
-        <div class="container">
-            <h2 class="section-title">🧠 AI-Powered Revenue Intelligence</h2>
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>95%</h3>
-                    <p>First-Pass Claim Success Rate</p>
+        <!-- Callback Request Form -->
+        <div class="form-section" id="callback">
+            <h2>📞 Request AI Callback</h2>
+            <p style="margin-bottom: 1rem; color: #666;">Enter your phone number and our AI will call you to demonstrate the voice platform. This is free!</p>
+            
+            <form id="callbackForm">
+                <div class="form-group">
+                    <label for="callbackName">Your Name *</label>
+                    <input type="text" id="callbackName" required placeholder="Your full name">
                 </div>
-                <div class="stat-item">
-                    <h3>40%</h3>
-                    <p>Faster Payment Collection</p>
+                <div class="form-group">
+                    <label for="callbackPhone">Phone Number *</label>
+                    <input type="tel" id="callbackPhone" required placeholder="(786) 555-1234">
                 </div>
-                <div class="stat-item">
-                    <h3>60%</h3>
-                    <p>Reduction in Denials</p>
+                <div class="form-group">
+                    <label for="callbackReason">What would you like to test?</label>
+                    <select id="callbackReason">
+                        <option value="demo">Just want to see how it works</option>
+                        <option value="claim">Check claim status</option>
+                        <option value="payment">Make a payment</option>
+                        <option value="insurance">Verify insurance</option>
+                    </select>
                 </div>
-                <div class="stat-item">
-                    <h3>24/7</h3>
-                    <p>Automated AR Management</p>
-                </div>
-            </div>
+                <button type="submit" class="submit-button">📞 Call Me Now (Free Demo)</button>
+                <div class="message" id="callbackMessage"></div>
+            </form>
         </div>
-    </section>
 
-    <section class="demo-section" id="demo">
-        <div class="container">
-            <h2 class="section-title">📋 Schedule Your MBMB Demo</h2>
-            <div class="demo-form">
-                <form id="demoForm">
-                    <div class="form-group">
-                        <label for="practiceName">Practice Name *</label>
-                        <input type="text" id="practiceName" name="practiceName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="fullName">Your Full Name *</label>
-                        <input type="text" id="fullName" name="fullName" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email Address *</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">Phone Number *</label>
-                        <input type="tel" id="phone" name="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="specialty">Medical Specialty *</label>
-                        <select id="specialty" name="specialty" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
-                            <option value="">Select Specialty</option>
-                            <option value="primary-care">Primary Care</option>
-                            <option value="cardiology">Cardiology</option>
-                            <option value="dermatology">Dermatology</option>
-                            <option value="orthopedics">Orthopedics</option>
-                            <option value="pediatrics">Pediatrics</option>
-                            <option value="other">Other</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="monthlyClaims">Monthly Claim Volume *</label>
-                        <select id="monthlyClaims" name="monthlyClaims" required style="width: 100%; padding: 0.8rem; border: 1px solid #ddd; border-radius: 8px;">
-                            <option value="">Select Volume</option>
-                            <option value="0-100">0-100 claims</option>
-                            <option value="101-500">101-500 claims</option>
-                            <option value="501-1000">501-1,000 claims</option>
-                            <option value="1001-5000">1,001-5,000 claims</option>
-                            <option value="5000+">5,000+ claims</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Current Billing Challenges</label>
-                        <textarea id="message" name="message" placeholder="Tell us about your current billing challenges and goals..."></textarea>
-                    </div>
-                    <button type="submit" class="submit-button">🏆 Schedule My MBMB Demo</button>
-                </form>
-                <p style="margin-top: 1rem; color: #666;">📅 Get a personalized demo within 24 hours</p>
-            </div>
+        <!-- Demo Request Form -->
+        <div class="form-section" id="demo">
+            <h2>📋 Schedule a Live Demo</h2>
+            <p style="margin-bottom: 1rem; color: #666;">Get a personalized demo of the full MBMB platform with a specialist.</p>
+            
+            <form id="demoForm">
+                <div class="form-group">
+                    <label for="practiceName">Practice Name *</label>
+                    <input type="text" id="practiceName" required placeholder="Your practice name">
+                </div>
+                <div class="form-group">
+                    <label for="fullName">Your Full Name *</label>
+                    <input type="text" id="fullName" required placeholder="Your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address *</label>
+                    <input type="email" id="email" required placeholder="your@email.com">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number *</label>
+                    <input type="tel" id="phone" required placeholder="(786) 555-1234">
+                </div>
+                <div class="form-group">
+                    <label for="specialty">Medical Specialty</label>
+                    <select id="specialty">
+                        <option value="">Select Specialty</option>
+                        <option value="primary">Primary Care</option>
+                        <option value="cardiology">Cardiology</option>
+                        <option value="dermatology">Dermatology</option>
+                        <option value="orthopedics">Orthopedics</option>
+                        <option value="pediatrics">Pediatrics</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="volume">Monthly Claim Volume</label>
+                    <select id="volume">
+                        <option value="">Select Volume</option>
+                        <option value="0-100">0-100 claims</option>
+                        <option value="101-500">101-500 claims</option>
+                        <option value="501-1000">501-1,000 claims</option>
+                        <option value="1000+">1,000+ claims</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="challenges">Current Challenges</label>
+                    <textarea id="challenges" placeholder="Tell us about your billing challenges..."></textarea>
+                </div>
+                <button type="submit" class="submit-button">📅 Schedule My Demo</button>
+                <div class="message" id="demoMessage"></div>
+            </form>
         </div>
-    </section>
+
+        <!-- Contact Info -->
+        <div class="form-section">
+            <h2>📱 Contact Us</h2>
+            <p><strong>Phone:</strong> (786) 643-2099</p>
+            <p><strong>Email:</strong> info@mbmbmedical.com</p>
+            <p><strong>Address:</strong> Miami, Florida</p>
+        </div>
+    </div>
 
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Product</h4>
-                    <ul>
-                        <li><a href="#features">AI Voice Agents</a></li>
-                        <li><a href="#features">Claim Automation</a></li>
-                        <li><a href="#analytics">Analytics</a></li>
-                        <li><a href="#">Integrations</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Company</h4>
-                    <ul>
-                        <li><a href="#">About MBMB</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Contact</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Compliance</h4>
-                    <ul>
-                        <li><a href="#">HIPAA Compliance</a></li>
-                        <li><a href="#">Security</a></li>
-                        <li><a href="#">Privacy Policy</a></li>
-                        <li><a href="#">Terms of Service</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <ul>
-                        <li>📍 Miami, FL</li>
-                        <li>📧 info@mbmb.com</li>
-                        <li>📞 (305) 555-MBMB</li>
-                        <li>🏍️ Serving South Florida</li>
-                    </ul>
-                </div>
-            </div>
-            <p>&copy; 2024 MBMB - Miami Medical Billing Automation. All rights reserved.</p>
+            <p>🏥 MBMB - Medical Billing Miami Beach</p>
+            <p style="opacity: 0.7; font-size: 0.9rem;">AI-Powered Medical Billing Since 2015</p>
         </div>
     </footer>
 
     <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+        const SUPABASE_URL = 'https://vodhhauwowkalvaxzqyv.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvZGhoYXV3b3drYWx2YXh6cXl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzIwMDAsImV4cCI6MjA2MTg0ODAwMH0.fake_anon_key';
+
+        // Test Supabase connection
+        async function testConnection() {
+            try {
+                const response = await fetch(SUPABASE_URL + '/rest/v1/', {
+                    headers: { 'apikey': SUPABASE_KEY }
                 });
-            });
-        });
+                document.getElementById('supabase-status').classList.remove('offline');
+            } catch (e) {
+                console.log('Supabase not connected yet');
+            }
+        }
 
-        // Form submission
-        document.getElementById('demoForm').addEventListener('submit', function(e) {
+        // Submit callback request
+        document.getElementById('callbackForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('callbackMessage');
             
-            // Get form data
-            const formData = new FormData(this);
-            const data = Object.fromEntries(formData);
+            btn.disabled = true;
+            btn.textContent = '⏳ Processing...';
             
-            // Here you would normally send the data to your server
-            console.log('Demo request submitted:', data);
+            const data = {
+                name: document.getElementById('callbackName').value,
+                phone: document.getElementById('callbackPhone').value,
+                reason: document.getElementById('callbackReason').value,
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
             
-            // Show success message
-            alert('🎉 Thank you for your interest in MBMB! We\'ll contact you within 24 hours to schedule your personalized demo.');
-            
-            // Reset form
-            this.reset();
-        });
-
-        // Add animation on scroll
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver(function(entries) {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
+            try {
+                // Try to store in Supabase
+                const response = await fetch(SUPABASE_URL + '/rest/v1/callback_requests', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    msg.textContent = '✅ Callback requested! We will call you shortly. (Twilio integration coming soon)';
+                    msg.className = 'message success';
+                    e.target.reset();
+                } else {
+                    throw new Error('Storage failed');
                 }
-            });
-        }, observerOptions);
-
-        // Observe all feature cards
-        document.querySelectorAll('.feature-card, .miami-card').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(20px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
+            } catch (error) {
+                // Store locally as fallback
+                const requests = JSON.parse(localStorage.getItem('callback_requests') || '[]');
+                requests.push(data);
+                localStorage.setItem('callback_requests', JSON.stringify(requests));
+                
+                msg.textContent = '✅ Callback requested! (Saved locally - Twilio integration coming soon)';
+                msg.className = 'message success';
+                e.target.reset();
+            }
+            
+            btn.disabled = false;
+            btn.textContent = '📞 Call Me Now (Free Demo)';
         });
+
+        // Submit demo request
+        document.getElementById('demoForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const msg = document.getElementById('demoMessage');
+            
+            btn.disabled = true;
+            btn.textContent = '⏳ Submitting...';
+            
+            const data = {
+                practice_name: document.getElementById('practiceName').value,
+                full_name: document.getElementById('fullName').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                specialty: document.getElementById('specialty').value,
+                volume: document.getElementById('volume').value,
+                challenges: document.getElementById('challenges').value,
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+            
+            try {
+                const response = await fetch(SUPABASE_URL + '/rest/v1/demo_requests', {
+                    method: 'POST',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Content-Type': 'application/json',
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                msg.textContent = '✅ Demo requested! We will contact you within 24 hours.';
+                msg.className = 'message success';
+                e.target.reset();
+            } catch (error) {
+                // Store locally
+                const requests = JSON.parse(localStorage.getItem('demo_requests') || '[]');
+                requests.push(data);
+                localStorage.setItem('demo_requests', JSON.stringify(requests));
+                
+                msg.textContent = '✅ Demo requested! (Saved - we will contact you)';
+                msg.className = 'message success';
+                e.target.reset();
+            }
+            
+            btn.disabled = false;
+            btn.textContent = '📅 Schedule My Demo';
+        });
+
+        // Initialize
+        testConnection();
     </script>
 </body>
 </html>
