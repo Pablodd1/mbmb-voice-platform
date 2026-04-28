@@ -18,6 +18,7 @@
     }
   ],
   "env": {
-    "SUPABASE_URL": "https://vodhhauwowkalvaxzqyv.supabase.co"
+    "SUPABASE_URL": "https://vodhhauwowkalvaxzqyv.supabase.co",
+    "SUPABASE_SECRET_KEY": "@supabase-secret-key"
   }
 }
