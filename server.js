@@ -63,8 +63,8 @@ async function generateSpeech(text, voiceId = 'male-qn-qingse') {
 function getSupabaseClient() {
     const { createClient } = require('@supabase/supabase-js');
     return createClient(
-        process.env.SUPABASE_URL || 'https://vodhhauwowkalvaxzqyv.supabase.co',
-        process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvZGhoYXV3b3drYWx2YXh6cXl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDYyNzIwMDAsImV4cCI6MjA2MTg0ODAwMH0.fake_key'
+process.env.SUPABASE_URL || 'https://vodhhauwowkalvaxzqyv.supabase.co',
+        process.env.SUPABASE_ANON_KEY || 'sb_publishable_XMqRO8wC0NpRwzSS4rF9ow_fLeInNey'
     );
 }
 
